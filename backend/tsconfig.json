@@ -1,4 +1,5 @@
 {
+  
   "compilerOptions": {
     // Environment setup & latest features
     "lib": ["ESNext"],
@@ -7,7 +8,7 @@
     "moduleDetection": "force",
     "jsx": "react-jsx",
     "allowJs": true,
-    "types": ["bun"],
+    "types": ["bun", "express", "node"],
 
     // Bundler mode
     "moduleResolution": "bundler",
@@ -21,10 +22,15 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
+   
 
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noPropertyAccessFromIndexSignature": false
-  }
+    "noPropertyAccessFromIndexSignature": false,
+     "paths" : {
+      "@prisma/client" : ["./node_modules/@prisma/client"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/types/**/*.d.ts"],
 }

@@ -3,13 +3,17 @@
 
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
+
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
+  engineType = "client"
+  runtime = "bun"
 }
 
 datasource db {
   provider = "postgresql"
+  
 }
 
 
@@ -17,6 +21,8 @@ model User {
   id  Int @id @default(autoincrement())
   username String
   password String
+  email String
+  fill Fills[]
 }
 
 model Fills {
@@ -27,9 +33,10 @@ model Fills {
   userId Int
   price Float
   asset String
-  createAt DateTime
+  createAt DateTime  @default(now())
   originalOrderId Int
-  user  Orders @relation(fields: [originalOrderId], references: [id])
+  order  Orders @relation(fields: [originalOrderId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 } 
 
 
@@ -43,12 +50,26 @@ model Stocks {
 model Orders {
     id Int @id @default(autoincrement())
   userId Int
-  market String
+  type Type @default(LIMIT)
   price Float
   quantity Int
-  side String
+  side Side @default(BUY)
   filledQantity Int
   status String
+  asset String
   createAt DateTime
-
+  fills Fills[] 
 }
+
+
+enum Type {
+  MARKET
+  LIMIT
+}
+
+enum Side {
+  BUY
+  SELL
+}
+
+
