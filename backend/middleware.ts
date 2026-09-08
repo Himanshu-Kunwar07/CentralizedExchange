@@ -1,15 +1,16 @@
 import jwt from "jsonwebtoken";
 import type { JwtPayload } from "jsonwebtoken";
+import { customRequest } from './index';
 import { Request, Response, NextFunction } from "express";
 
-interface customPayload extends JwtPayload {
+ interface customPayload extends JwtPayload {
   user: {
     id: number,
     email: string
   }
 }
 
-export const authmiddleware = (req: Request, res: Response, next: NextFunction) => {
+export const authmiddleware = (req: customRequest, res: Response, next: NextFunction) => {
   const token = req.headers.token;
 
   if (typeof token != "string") {
