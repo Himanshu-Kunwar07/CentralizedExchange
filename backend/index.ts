@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import {  authmiddleware } from "./middleware";
 import { PrismaNeon } from "@prisma/adapter-neon";
 import assert from "node:assert";
+import { crateClient } from 'redis';
 
 const app = express();
 app.use(express.json());
@@ -300,7 +301,7 @@ app.delete("/order/:orderid", authmiddleware, async(req: customRequest, res: Res
 });
 
 app.get("/depth/:orderid", authmiddleware, (req: customRequest, res: Response)=> {
-
+      
 });
 
 app.get("balance/", authmiddleware, (req: customRequest, res: Response)=> {
